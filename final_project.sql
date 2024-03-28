@@ -3,7 +3,7 @@ CREATE TABLE usertype (
     user_type VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Users (
+CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -14,7 +14,7 @@ CREATE TABLE Users (
     FOREIGN KEY (fk_user_type_id) REFERENCES UserType(user_type_id)
 );
 
-CREATE INDEX idx_email ON Users(email);
-CREATE INDEX idx_username ON Users(user_name);
+CREATE INDEX idx_email ON users(email);
+CREATE INDEX idx_username ON users(user_name);
 
 CREATE TABLE 

@@ -1,3 +1,9 @@
+-- UserType Table
+CREATE TABLE usertype (
+    user_type_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_type VARCHAR(255) NOT NULL
+);
+
 -- Users Table
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -8,13 +14,7 @@ CREATE TABLE users (
     last_login DATETIME,
     user_type_id INT NOT NULL,
     FOREIGN KEY (user_type_id) REFERENCES usertype(user_type_id)
-) ENGINE=InnoDB;
-
--- UserType Table
-CREATE TABLE usertype (
-    user_type_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_type VARCHAR(255) NOT NULL
-) ENGINE=InnoDB;
+);
 
 -- Brands Table
 CREATE TABLE brands (
@@ -25,7 +25,7 @@ CREATE TABLE brands (
     foundation_year YEAR,
     INDEX (brand_name),
     INDEX (eco_friendly_rating)
-) ENGINE=InnoDB;
+);
 
 -- Products Table
 CREATE TABLE products (
@@ -44,7 +44,7 @@ CREATE TABLE products (
     INDEX (category_id),
     INDEX (price),
     INDEX (eco_rating)
-) ENGINE=InnoDB;
+);
 
 -- ProductCategories Table
 CREATE TABLE productcategories (
@@ -52,7 +52,7 @@ CREATE TABLE productcategories (
     category_name VARCHAR(255) NOT NULL,
     description TEXT,
     INDEX (category_name)
-) ENGINE=InnoDB;
+);
 
 -- ProductReviews Table
 CREATE TABLE productreviews (
@@ -67,7 +67,7 @@ CREATE TABLE productreviews (
     INDEX (product_id),
     INDEX (user_id),
     INDEX (rating)
-) ENGINE=InnoDB;
+);
 
 -- Orders Table
 CREATE TABLE orders (
@@ -81,7 +81,7 @@ CREATE TABLE orders (
     FOREIGN KEY (address_id) REFERENCES addresses(address_id),
     INDEX (user_id),
     INDEX (date_placed)
-) ENGINE=InnoDB;
+);
 
 -- OrderDetails Table
 CREATE TABLE orderdetails (
@@ -94,7 +94,7 @@ CREATE TABLE orderdetails (
     FOREIGN KEY (product_id) REFERENCES products(product_id),
     INDEX (order_id),
     INDEX (product_id)
-) ENGINE=InnoDB;
+);
 
 -- ProductMaterials Table
 CREATE TABLE productmaterials (
@@ -104,7 +104,7 @@ CREATE TABLE productmaterials (
     recyclable BOOLEAN NOT NULL,
     INDEX (eco_friendly_score),
     INDEX (recyclable)
-) ENGINE=InnoDB;
+);
 
 -- ProductMaterialLink Table (Junction Table)
 CREATE TABLE productmateriallink (
@@ -113,7 +113,7 @@ CREATE TABLE productmateriallink (
     PRIMARY KEY (product_id, material_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id),
     FOREIGN KEY (material_id) REFERENCES productmaterials(material_id)
-) ENGINE=InnoDB;
+);
 
 -- Addresses Table
 CREATE TABLE addresses (
@@ -124,7 +124,7 @@ CREATE TABLE addresses (
     zip_code VARCHAR(20) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     INDEX (zip_code)
-) ENGINE=InnoDB;
+);
 
 -- InventoryTransactions Table
 CREATE TABLE inventorytransactions (
@@ -138,4 +138,4 @@ CREATE TABLE inventorytransactions (
     INDEX (product_id),
     INDEX (transaction_date),
     INDEX (type)
-) ENGINE=InnoDB;
+);

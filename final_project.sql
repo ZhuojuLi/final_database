@@ -17,4 +17,19 @@ CREATE TABLE users (
 CREATE INDEX idx_email ON users(email);
 CREATE INDEX idx_username ON users(user_name);
 
-CREATE TABLE 
+CREATE TABLE Brands (
+    BrandID INT AUTO_INCREMENT PRIMARY KEY,
+    BrandName VARCHAR(255) NOT NULL,
+    Description TEXT,
+    EcoFriendlyRating INT,
+    FoundationYear INT,
+    INDEX (BrandName),
+    INDEX (EcoFriendlyRating)
+);
+
+CREATE TABLE ProductCategories (
+    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    CategoryName VARCHAR(255) NOT NULL,
+    Description TEXT,
+    INDEX (CategoryName)
+);

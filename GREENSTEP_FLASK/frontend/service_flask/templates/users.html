@@ -28,16 +28,5 @@
         {% endfor %}
     </table>
 
-    <h2>Create a New User</h2>
-    <form action="/users" method="post">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="email" name="email" placeholder="Email" required><br>
-        <input type="text" name="password_hash" placeholder="Password Hash" required><br>
-        <input type="datetime-local" name="date_joined"><br>
-        <input type="datetime-local" name="last_login"><br>
-        <input type="number" name="user_type_id" placeholder="User Type ID" required><br>
-        <button type="submit">Submit</button>
-    </form>
-
 </body>
 </html>

@@ -6,35 +6,22 @@
 </head>
 <body>
     <h1>Product Management</h1>
-    <h2>Create a New Product</h2>
-    <form action="/products" method="post">
-        <input type="text" name="name" placeholder="Product Name" required><br>
-        <input type="text" name="description" placeholder="Description"><br>
-        <input type="number" name="brand_id" placeholder="Brand ID" required><br>
-        <input type="number" name="category_id" placeholder="Category ID" required><br>
-        <input type="text" name="price" placeholder="Price" required><br>
-        <input type="number" name="stock_quantity" placeholder="Stock Quantity" required><br>
-        <input type="number" name="eco_rating" placeholder="Eco Rating" required><br>
-        <button type="submit">Submit</button>
-    </form>
-    <h2>Update a Product</h2>
-    <form action="/products" method="post">
-        <input type="hidden" name="_method" value="put">
-        <input type="number" name="product_id" placeholder="Product ID" required><br>
-        <input type="text" name="name" placeholder="New Product Name" required><br>
-        <input type="text" name="description" placeholder="New Description"><br>
-        <input type="number" name="brand_id" placeholder="New Brand ID" required><br>
-        <input type="number" name="category_id" placeholder="New Category ID" required><br>
-        <input type="text" name="price" placeholder="New Price" required><br>
-        <input type="number" name="stock_quantity" placeholder="New Stock Quantity" required><br>
-        <input type="number" name="eco_rating" placeholder="New Eco Rating" required><br>
-        <button type="submit">Update Product</button>
-    </form>
-    <h2>Delete a Product</h2>
-    <form action="/products" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <input type="number" name="product_id" placeholder="Product ID to Delete" required><br>
-        <button type="submit">Delete Product</button>
-    </form>
+    <h2>All Products</h2>
+    <table border="1">
+        <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product['product_id'] }}</td>
+            <td>{{ product['name'] }}</td>
+            <td>{{ product['description'] }}</td>
+            <td>{{ product['price'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

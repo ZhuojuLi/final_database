@@ -3,74 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Users</title>
-    <script>
-        
-        // Function to fetch users and update the UI
-        function fetchUsers() {
-            fetch('/users')
-            .then(response => response.json())
-            .then(data => {
-                const usersTable = document.getElementById('users-table-body');
-                usersTable.innerHTML = '';  // Clear existing entries
-                data.forEach(user => {
-                    let row = `<tr>
-                        <td>${user.user_id}</td>
-                        <td>${user.username}</td>
-                        <td>${user.email}</td>
-                        <td>${new Date(user.date_joined).toLocaleString()}</td>
-                        <td>${user.last_login ? new Date(user.last_login).toLocaleString() : 'Never'}</td>
-                        <td>${user.user_type_id}</td>
-                    </tr>`;
-                    usersTable.innerHTML += row;
-                });
-            });
-        }
-
-        // Function to handle form submissions
-        function submitForm(event, form, method, endpoint) {
-            event.preventDefault();
-            const formData = new FormData(form);
-            const jsonData = {};
-            formData.forEach((value, key) => jsonData[key] = value);
-
-            fetch(endpoint, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(jsonData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message) {
-                    alert(data.message);  // Alert the message property from the server
-                } else {
-                    alert('Received unknown data');
-                }
-                console.log('Success:', data);
-                //fetchUsers();  // Refresh the list of users
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to process the request.');
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Attach event listeners to forms
-            document.getElementById('create-user-form').addEventListener('submit', function(event) {
-                submitForm(event, this, 'POST', '/users');
-            });
-            // document.getElementById('update-user-form').addEventListener('submit', function(event) {
-            //     submitForm(event, this, 'PUT', '/users');
-            // });
-            // document.getElementById('delete-user-form').addEventListener('submit', function(event) {
-            //     submitForm(event, this, 'DELETE', '/users');
-            // });
-
-            fetchUsers();  // Initial fetch of users
-        });
-    </script>
 </head>
 <body>
     <h1>User Management</h1>
@@ -97,34 +29,15 @@
     </table>
 
     <h2>Create a New User</h2>
-    <form id="create-user-form" action="/users" method="post">
+    <form action="/users" method="post">
         <input type="text" name="username" placeholder="Username" required><br>
-        <input type="text" name="email" placeholder="Email" required><br>
+        <input type="email" name="email" placeholder="Email" required><br>
         <input type="text" name="password_hash" placeholder="Password Hash" required><br>
-        <!-- <input type="text" name="date_joined" placeholder="Date Joined" required><br> -->
-        <!-- <input type="text" name="last_login" placeholder="Last Login"><br> -->
+        <input type="datetime-local" name="date_joined"><br>
+        <input type="datetime-local" name="last_login"><br>
         <input type="number" name="user_type_id" placeholder="User Type ID" required><br>
         <button type="submit">Submit</button>
     </form>
 
-    <h2>Update a User</h2>
-    <form id="update-user-form" action="/users" method="post">
-        <input type="hidden" name="_method" value="put">
-        <input type="number" name="user_id" placeholder="User ID" required><br>
-        <input type="text" name="username" placeholder="New Username" required><br>
-        <input type="text" name="email" placeholder="New Email" required><br>
-        <input type="text" name="password_hash" placeholder="New Password Hash" required><br>
-        <input type="text" name="date_joined" placeholder="New Date Joined" required><br>
-        <input type="text" name="last_login" placeholder="New Last Login"><br>
-        <input type="number" name="user_type_id" placeholder="New User Type ID" required><br>
-        <button type="submit">Update User</button>
-    </form>
-
-    <h2>Delete a User</h2>
-    <form id="delete-user-form" action="/users" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <input type="number" name="user_id" placeholder="User ID to Delete" required><br>
-        <button type="submit">Delete User</button>
-    </form>
 </body>
 </html>
